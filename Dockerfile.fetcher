@@ -1,0 +1,13 @@
+# Dockerfile.fetcher
+FROM python:3.10-slim
+
+WORKDIR /app
+
+# Copy required files
+COPY fetch_data.py requirements.txt ./
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Run the fetch script
+CMD ["python", "fetch_data.py"]

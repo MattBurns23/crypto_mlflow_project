@@ -1,0 +1,9 @@
+FROM python:3.10-slim
+
+WORKDIR /app
+
+RUN pip install mlflow scikit-learn pandas requests python-dotenv
+
+EXPOSE 5000
+
+CMD ["mlflow", "server", "--backend-store-uri", "file:/mlflow", "--host", "0.0.0.0", "--port", "5000"]

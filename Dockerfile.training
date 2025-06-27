@@ -1,0 +1,16 @@
+# Dockerfile.training
+FROM python:3.10-slim
+
+WORKDIR /app
+
+# Copy the training script and requirements
+COPY train_model.py requirements.txt ./
+
+# Copy the cleaned data directory
+COPY data/ ./data/
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Set command to train the model
+CMD ["python", "train_model.py"]

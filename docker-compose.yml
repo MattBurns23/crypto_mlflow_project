@@ -1,0 +1,43 @@
+version: "3.8"
+
+services:
+  mlflow:
+    build:
+      context: .
+      dockerfile: Dockerfile.mlflow
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./mlruns:/mlflow
+    environment:
+      - MLFLOW_TRACKING_URI=http://mlflow:5000
+    working_dir: /app
+
+  fetcher:
+    build:
+      context: .
+      dockerfile: Dockerfile.fetcher
+    volumes:
+      - ./data:/app/data
+    env_file:
+      - .env
+    working_dir: /app
+
+  cleaner:
+    build:
+      context: .
+      dockerfile: Dockerfile.cleaner
+    volumes:
+      - ./data:/app/data
+    working_dir: /app
+
+  trainer:
+    build:
+      context: .
+      dockerfile: Dockerfile.training
+    volumes:
+      - ./data:/app/data
+      - ./mlruns:/mlflow
+    environment:
+      - MLFLOW_TRACKING_URI=http://mlflow:5000
+    working_dir: /app

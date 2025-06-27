@@ -1,0 +1,17 @@
+# Dockerfile.cleaner
+FROM python:3.10-slim
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy only necessary files
+COPY clean_data.py requirements.txt ./
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the data directory
+COPY data/ ./data/
+
+# Set default command
+CMD ["python", "clean_data.py"]

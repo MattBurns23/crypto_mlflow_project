@@ -1,0 +1,14 @@
+# Ignore data outputs
+mlruns/
+__pycache__/
+*.pyc
+
+# Ignore credentials
+.env
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+*.pkl
+*.log
